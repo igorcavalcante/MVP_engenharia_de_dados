@@ -16,15 +16,32 @@ Localizada na constelação de Perseu, é um sistema estelar binário eclipsante
 - Qual a distribuição das observações ao longo do ano?
 - Que agências/astrônomos contribuem mais para os dados dessas estrelas?
 
-
-## Perguntas
 ## Modelagem
+O modelo proposto foi um modelo dimensional estrela onde o fato é a __magnitude observada__ 
+e as dimensões são:
+- Data
+- Estrela
+- Observador
+- Incerteza
+
+![Figura 1: Modelo dimensional estrela](img/modelo.png)
+
 ## Catálogo
 | Coluna | Tipo de dado | Descrição | Valores esperados |
 |--------|--------------|-----------|-------------------|
-|        |              |           |                   |
+|Magnitude        |Decimal              | Brilho de um objeto no céu. Quanto menor o número, maior o brilho          | de -10.0 até +10.0                  |
+|Data         |Data                 | Data da observação da estrela. Formato AAAA-MM-DD                           | 2000-01-01 2021-01-01        |
+|Estrela       |Texto                | Nome da estrela observada.                                                  | Betelgeuse, Eta Carinae, Algol|
+|Observador    |Texto                | Nome ou código do observador que fez a medição.                                 | Código alfanumérico           |
+|Incerteza     |Decimal              | Margem de erro associada à medição da magnitude.                                   | de 0.0 até 1.0                     |
 
 ### Linhagem
+- Coleta manual dos dados em formato csv na AAVSO
+- Armazenamento dos dados via upload no Databricks
+- Armazenamento dos dados brutos na camada bronze do Data Lake
+- Limpeza e transformação dos dados na camada prata
+- Transformação dos dados para o modelo dimensional na camada ouro
+
 ## Pipeline de dados
 ### Coleta
 ### Limpeza
