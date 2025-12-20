@@ -62,7 +62,7 @@ A limpeza dos dados foi feita na camada prata do Data Lake.
 - A granularidade da incerteza foi padronizada pra uma casa decimal
 - As datas foram convertidas para o calendário gregoriano
 
-- [Link para o notebook da camada prata](https://github.com/igorcavalcante/MVP_engenharia_de_dados/refs/heads/main/silver_layer.py)
+- [Link para o notebook da camada prata](https://github.com/igorcavalcante/MVP_engenharia_de_dados/blob/main/silver_layer.py)
 
 ### Transformação
 
