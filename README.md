@@ -44,8 +44,29 @@ e as dimensões são:
 
 ## Pipeline de dados
 ### Coleta
+A coleta foi feita manualmente através de arquivos csvs disponibilizados pela AAVSO.
+Foi feito um upload para o Databricks e armazenado na camada bronze do Data Lake. Como o Databricks
+dá a opção de criar a tabela no momento do upload, não foi necessário usar nenhum mecanismo mais
+sofisticado de ingestão de dados. Foram criadas 3 tabelas, uma para cada estrela, pois assim na
+camada prata ficará mais fácil fazer a limpeza dos dados.
+
+> Nota-se muitas colunas com valores nulos, inclusive valores incorretos para o nome das estrelas.
+![Figura 2: Amostragem da tabela de medições de estrelas variáveis na camada bronze](img/bronze.png)
+
 ### Limpeza
+A limpeza dos dados foi feita na camada prata do Data Lake. 
+- Foram removidas colunas desnecessárias
+- Foram corrigidos valores incorretos para os nomes das estrelas
+- Todas as linhas cujo o valor da magnitude fosse nulo foram removidas
+- Todos os registros de incerteza com valores incorretos foram limpos
+- A granularidade da incerteza foi padronizada pra uma casa decimal
+- As datas foram convertidas para o calendário gregoriano
+
+- [Link para o notebook da camada prata](https://raw.githubusercontent.com/igorcavalcante/MVP_engenharia_de_dados/refs/heads/main/silver_layer.ipynb)
+
 ### Transformação
+
+
 ## Análise
 ### Qualidade dos dados
 ### Solução do problema
