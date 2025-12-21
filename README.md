@@ -123,7 +123,7 @@ Foi registrado um total de 1062 observadores e os top 10 observadores são:
 ## Autoavaliação
 Usar o modelo dimensional juntamente com uma pipeline de dados em camadas facilitou bastante o processo
 de análise dos dados. Houve uma certa dificuldade na inicial no uso do Databricks, mas
-com o assistente o assistente dele juntamente com ampla documentação viabilizaram o processo.
+com o assistente dele juntamente com ampla documentação viabilizaram o processo.
 
 Para próximos passos:
 - Automatizar a coleta dos dados via API da AAVSO
