@@ -7,7 +7,7 @@ resultado.show()
 # COMMAND ----------
 
 from pyspark.sql import functions as F
-from pyspark.sql.functions import lit, col, expr
+from pyspark.sql.functions import lit, col, expr, round
 
 df_betelgeuse = spark.table("`workspace`.`default`.`betelgeuse_2000_2025`")\
   .withColumn("star_name", lit("Betelgeuse"))\
@@ -29,12 +29,15 @@ df_silver = df_silver.withColumn("magnitude_temp", F.regexp_replace(F.col("magni
 df_silver = df_silver.withColumn("magnitude_float", expr("try_cast(magnitude_temp AS FLOAT)"))
 df_silver = df_silver.dropna(subset=["magnitude_float"])
 df_silver = df_silver.withColumn("magnitude", F.col("magnitude_float")).drop("magnitude_temp", "magnitude_float")
+df_silver = df_silver.withColumn("magnitude", col("magnitude").cast("decimal(10,3)"))
 print(df_silver.filter(F.col("magnitude").isNull()).count())
 
 # Limpando a coluna uncertainty
 df_silver = df_silver.withColumn("uncertainty_temp", F.regexp_replace(F.col("uncertainty"), r"[^\d.]", ""))
-df_silver = df_silver.withColumn("uncertainty", F.col("uncertainty_temp")).drop("magnitude_temp")
-df_silver.filter(F.col("uncertainty").isNull()).count()
+df_silver = df_silver.withColumn("uncertainty", F.col("uncertainty_temp")).drop("uncertainty_temp")
+df_silver = df_silver.withColumn("uncertainty", round(col("uncertainty"), 1))
+print(df_silver.filter(F.col("uncertainty").isNull()).count())
+display(df_silver.filter(F.col("uncertainty") > 0).limit(5))
 
 df_silver.printSchema()
 
@@ -50,6 +53,8 @@ df_silver.filter(F.col("observer_code").isNull()).count()
 from pyspark.sql import functions as F
 
 df_silver = df_silver.withColumn("data_gregoriana", ((F.col("jd") - 2440587.5) * 86400).cast("timestamp"))
+
+df_silver.printSchema()
 
 # COMMAND ----------
 
